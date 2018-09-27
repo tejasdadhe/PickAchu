@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="mediaBorderColor">#3B5998 </color>
+    <color name="mediaCounterTextColour">#fff</color>
+    <color name="semiTransparentBlack">#8000</color>
+</resources>
