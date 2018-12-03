@@ -83,11 +83,16 @@ public class CustomGallery extends RelativeLayout {
         for (int i = 0; i < mediaCursor.getCount(); i++)
         {
             mediaCursor.moveToPosition(i);
+            int idColumnIndex   = mediaCursor.getColumnIndex(MediaStore.Files.FileColumns._ID);
             int dataColumnIndex = mediaCursor.getColumnIndex(MediaStore.Files.FileColumns.DATA);
             int typeColumnIndex = mediaCursor.getColumnIndex(MediaStore.Files.FileColumns.MEDIA_TYPE);
             int durationColumnIndex = mediaCursor.getColumnIndex(MediaStore.Video.Media.DURATION);
+            int dateColumnIndex = mediaCursor.getColumnIndex(MediaStore.Video.Media.DATE_ADDED);
+
+
             MediaData m = new MediaData();
-            m.setMediaType(Integer.toString(mediaCursor.getInt(typeColumnIndex)));
+            m.setMediaId(mediaCursor.getString(idColumnIndex));
+            m.setMediaType(mediaCursor.getInt(typeColumnIndex));
             if( mediaCursor.getInt(typeColumnIndex) == MediaStore.Files.FileColumns.MEDIA_TYPE_VIDEO )
             {
                 String durarion = String.format(Locale.getDefault(),
@@ -97,7 +102,9 @@ public class CustomGallery extends RelativeLayout {
                 );
                 m.setMediaDuration(durarion);
             }
+
             m.setUrlHD(mediaCursor.getString(dataColumnIndex));
+            m.setDate(mediaCursor.getString(dateColumnIndex));
             mediaData.add(m);
         }
         return mediaData;
@@ -122,8 +129,7 @@ public class CustomGallery extends RelativeLayout {
             this(context.getResources().getDimensionPixelSize(itemOffsetId));
         }
         @Override
-        public void getItemOffsets(Rect outRect, View view, RecyclerView parent,
-                                   RecyclerView.State state) {
+        public void getItemOffsets(@NonNull Rect outRect,@NonNull View view,@NonNull RecyclerView parent,@NonNull  RecyclerView.State state) {
             super.getItemOffsets(outRect, view, parent, state);
             outRect.set(mItemOffset, mItemOffset, mItemOffset, mItemOffset);
         }

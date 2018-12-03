@@ -2,6 +2,7 @@ package com.tejasdadhe.pickachu;
 
 import android.content.Context;
 import android.net.Uri;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
@@ -47,7 +48,7 @@ public class MediaAdapter extends RecyclerView.Adapter<MediaAdapter.ViewHolder> 
         selectedLast=0;
     }
 
-    public MediaData[] getCheckedItems() {
+    MediaData[] getCheckedItems() {
         ArrayList<MediaData> mTempArry = new ArrayList<>();
         for(int i=0;i<mediaData.size();i++) {
             if(mSparseBooleanArray.get(i)) {
@@ -83,7 +84,7 @@ public class MediaAdapter extends RecyclerView.Adapter<MediaAdapter.ViewHolder> 
                 tempTextCount.setText(String.format(Locale.getDefault(),"%d",checkpoint));
                 mCountList.put(index, checkpoint);                                    // Put the respective count number of the cell in array for recycling
                 mSparseBooleanArray.put(index,true);                                  // Put the respective flag in boolean array as true for selected cell
-                if(mediaData.get(index).getMediaType().equals("3"))
+                if(mediaData.get(index).getMediaType() == MediaStore.Files.FileColumns.MEDIA_TYPE_VIDEO)
                 {
                     vidIndicator.setBackgroundColor(ContextCompat.getColor(mContext, R.color.mediaBorderColor));
                     CheckBox checkBox = (CheckBox) buttonView;
@@ -155,7 +156,7 @@ public class MediaAdapter extends RecyclerView.Adapter<MediaAdapter.ViewHolder> 
 
         Log.e("MediaAdapter","MediaType : "+ mediaData.get(position).getMediaType());
         RequestOptions options = new RequestOptions();
-        if(mediaData.get(position).getMediaType().equals("3"))
+        if(mediaData.get(position).getMediaType() == MediaStore.Files.FileColumns.MEDIA_TYPE_VIDEO)
         {
             holder.videoIndicator.setVisibility(View.VISIBLE);
             holder.durationText.setText(mediaData.get(position).getMediaDuration());

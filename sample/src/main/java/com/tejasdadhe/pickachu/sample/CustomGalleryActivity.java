@@ -12,6 +12,7 @@ import com.tejasdadhe.pickachu.MediaData;
 
 public class CustomGalleryActivity extends AppCompatActivity {
 
+    String TAG = " Custom GAllery Activity ";
     CustomGallery customGalleryView;
 
     @Override
@@ -31,8 +32,9 @@ public class CustomGalleryActivity extends AppCompatActivity {
         {
             Toast.makeText(CustomGalleryActivity.this,  a.length + " items selected ", Toast.LENGTH_SHORT).show();
             Log.d(CustomGallery.class.getSimpleName(), "Selected Items are as follows ");
-            for(int i=0; i<a.length; i++)
-                Log.d(CustomGallery.class.getSimpleName(), "" + a[i].getUrlHD());
+            for (MediaData anA : a) {
+                Log.d(TAG, "File Id : " + anA.getMediaId() + " | URL : " + anA.getUrlHD() + " | File type : " + anA.getMediaType() + " | Date : " + anA.getDate());
+            }
         }
     }
 
